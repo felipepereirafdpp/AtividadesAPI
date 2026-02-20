@@ -1,12 +1,13 @@
-using AtividadesAPI.CRUD.Context;
 using Microsoft.EntityFrameworkCore;
+using AtividadesAPI.ApiDocs.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<DocumentosContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RGContext") ?? throw new InvalidOperationException("Connection string 'RGContext' not found.")));
+
 // Add services to the container.
-builder.Services.AddDbContext<AgendaContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("ConexaoPadrao")));
+
 
 
 builder.Services.AddControllers();
